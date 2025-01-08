@@ -1,12 +1,15 @@
 
-node {
-    stage('Build') {
-        echo 'Building...'
+pipeline{
+  agent any
+  stages{
+    stage('build'){
+      steps{
+        script{
+          echo "build in progress"
+        }
+      }
     }
-    stage('Test') {
-        echo 'Testing...'
-    }
-    stage('Deploy') {
-        echo 'Deploying...'
-    }
+  }
 }
+
+
