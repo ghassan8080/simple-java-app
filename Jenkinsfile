@@ -1,14 +1,12 @@
-
-pipeline{
+pipeline {
   agent {
-  label 'cont-agent'
-}
+    label 'cont-agent'
+  }
 
-
-   stages{
-    stage('build'){
-      steps{
-        script{
+  stages {
+    stage('build') {
+      steps {
+        script {
           echo "build in progress"
         }
       }
@@ -16,16 +14,17 @@ pipeline{
   }
 
   post {
-  success {
-    slackSend channel: '#jenkins-ci', message: 'slackSend "success ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"', teamDomain: 'boc-rmx8685', tokenCredentialId: 'slack-notification'
-  
-  failure {
-       slackSend channel: '#jenkins-ci', message: 'slackSend "failed ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"', teamDomain: 'boc-rmx8685', tokenCredentialId: 'slack-notification'
+    success {
+      slackSend channel: '#jenkins-ci', 
+                message: "Success: ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)",
+                teamDomain: 'boc-rmx8685', 
+                tokenCredentialId: 'slack-notification'
+    }
+    failure {
+      slackSend channel: '#jenkins-ci', 
+                message: "Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)",
+                teamDomain: 'boc-rmx8685', 
+                tokenCredentialId: 'slack-notification'
+    }
   }
-
 }
-
-
-}
-
-
