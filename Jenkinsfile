@@ -25,7 +25,7 @@ pipeline {
                 script {
                     withAWS(credentials: 'aws-cli', region: 'us-east-2') {
                         // Set the AWS_PROFILE environment variable
-                        withEnv(['AWS_PROFILE=your-profile-name']) {
+                        withEnv(['AWS_PROFILE=myprofile']) {
                             sh 'aws eks update-kubeconfig --region us-east-2 --name eks'
                             sh 'kubectl apply -f ./k8s/deployment.yaml'
                         }
